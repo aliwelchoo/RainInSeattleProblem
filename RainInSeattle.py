@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 pRain = 0.5
 fT = 2/3
 friends = 3
-it = 100000
+it = 10000
 
 #calc
 pNoRain = 1 - pRain
@@ -25,8 +25,7 @@ DG = []
 ADG = []
 x = []
 
-fig = plt.figure(figsize=(14, 6), dpi=80, facecolor='w', edgecolor='k')           
-
+fig = plt.figure(num="LIVE", figsize=(14, 6), dpi=80, facecolor='w', edgecolor='k')           
 #calculate
 while yeses < it :
     rain = np.random.random() <= pRain
@@ -68,7 +67,8 @@ while yeses < it :
             x.pop(0)
          
 #plot iterations
-plt.figure(num=None, figsize=(14, 6), dpi=80, facecolor='w', edgecolor='k')    
+plt.close()
+fig = plt.figure(num="Complete", figsize=(14, 6), dpi=80, facecolor='w', edgecolor='k')
 plt.subplot(121)        
 plt.plot(P, label = "P(Rain given all say rain)")
 plt.plot(AD, label = "Absolute distance to expected")
