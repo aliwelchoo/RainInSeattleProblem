@@ -17,9 +17,15 @@ expected = (fT**friends)*pRain/((fT**friends)*pRain+(fL**friends)*pNoRain)
 pRain_YYY = 0
 yeses = 0
 rained = 0
-P = [0]*it
-D = [0]*it
-AD = [0]*it
+P = []
+D = []
+AD = []
+PG = []
+DG = []
+ADG = []
+x = []
+
+fig = plt.figure(figsize=(14, 6), dpi=80, facecolor='w', edgecolor='k')           
 
 #calculate
 while yeses < it :
@@ -31,10 +37,36 @@ while yeses < it :
         if rain :  
             rained += 1
         pRain_YYY = rained/yeses
-        P[yeses-1] = pRain_YYY
-        D[yeses-1] = pRain_YYY - expected
-        AD[yeses-1] = abs(pRain_YYY - expected)
-    
+        P.append(pRain_YYY)
+        D.append(pRain_YYY - expected)
+        AD.append(abs(pRain_YYY - expected))
+        PG.append(pRain_YYY)
+        DG.append(pRain_YYY - expected)
+        ADG.append(abs(pRain_YYY - expected))
+        x.append(yeses)
+        
+        
+        if yeses/50 == round(yeses/50) :
+            #plot most recent results live
+            plt.clf()
+            plt.subplot(121)  
+            plt.plot(x,PG, label = "P(Rain given all say rain)")
+            plt.plot(x,ADG, label = "Absolute distance to expected")
+            plt.ylim(0,1)
+            plt.legend(loc = 8)
+            plt.subplot(122)  
+            plt.plot(x,DG, label = "Distance to expected")
+            plt.ylim(-0.05,0.05)
+            plt.legend(loc = 8)
+            fig.canvas.draw()
+            fig.canvas.flush_events()
+        
+        if yeses>5000:
+            PG.pop(0)
+            DG.pop(0)
+            ADG.pop(0)
+            x.pop(0)
+         
 #plot iterations
 plt.figure(num=None, figsize=(14, 6), dpi=80, facecolor='w', edgecolor='k')    
 plt.subplot(121)        
